@@ -7,8 +7,8 @@ const {
 } = require("../controllers/DriverAuthController");
 const router = express.Router();
 
-router.post("/driver/register", createDriver);
-router.post("/driver/login", loginDriver);
-router.post("/driver/logout", logoutDriver);
+router.post("/register", createDriver);
+router.post("/login", loginDriver);
+router.post("/logout", logoutDriver);
 
 module.exports = router;

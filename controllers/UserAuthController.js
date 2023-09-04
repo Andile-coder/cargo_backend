@@ -34,7 +34,6 @@ const createUser = asyncHandler(async (req, res) => {
       res.status(400).send({ message: "Failed to create user " + error });
     });
 });
-
 //@desc login user
 //@route POST /login
 //@access public
@@ -68,5 +67,29 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(401).send({ message: "Invalid Password or Email" });
   }
 });
-
-module.exports = { createUser, loginUser };
+//@desc logout user
+//@route POST /logout
+//@access private
+const logoutUser = asyncHandler(async (req, res) => {
+  async () => await sequelize.sync({ force: true });
+  const { user_id } = req.body;
+  const token = req.headers.Authorization || req.headers.authorization;
+  async () => await sequelize.sync({ force: true });
+  if (token && token.startsWith("Bearer ")) {
+    const tokenToInvalidate = token.split(" ")[1];
+    await InvalidToken.create({
+      user_id,
+      token: tokenToInvalidate,
+    })
+      .then(() => {
+        return;
+      })
+      .catch((err) => {
+        return res.status(400).send({ message: "Invalid request", err });
+      });
+    res.status(200).send({ message: "User logged out" });
+  } else {
+    res.status(400).send({ message: "Invalid request" });
+  }
+});
+module.exports = { createUser, loginUser, logoutUser };

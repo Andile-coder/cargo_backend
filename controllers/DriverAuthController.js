@@ -49,7 +49,6 @@ const createDriver = asyncHandler(async (req, res) => {
       return;
     });
 });
-
 //@desc login Driver
 //@route POST /driver/login
 //@access public
@@ -83,20 +82,26 @@ const loginDriver = asyncHandler(async (req, res) => {
     res.status(401).send({ message: "Invalid Password or Email" });
   }
 });
-
+//@desc logout Driver
+//@route POST /driver/logout
+//@access private
 const logoutDriver = asyncHandler(async (req, res) => {
   async () => await sequelize.sync({ force: true });
-  const { driver_id } = req.body;
+  const { user_id } = req.body;
   const token = req.headers.Authorization || req.headers.authorization;
   async () => await sequelize.sync({ force: true });
   if (token && token.startsWith("Bearer ")) {
     const tokenToInvalidate = token.split(" ")[1];
     await InvalidToken.create({
-      driver_id,
+      user_id,
       token: tokenToInvalidate,
     })
-      .then(() => console.log("success"))
-      .catch((err) => console.log(err));
+      .then(() => {
+        return;
+      })
+      .catch((err) => {
+        return res.status(400).send({ message: "Invalid request", err });
+      });
     res.status(200).send({ message: "User logged out" });
   } else {
     res.status(400).send({ message: "Invalid request" });

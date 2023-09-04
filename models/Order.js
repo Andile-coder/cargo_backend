@@ -7,6 +7,7 @@ const Order = sequelize.define("Order", {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
+    unique: true,
   },
   user_id: {
     type: DataTypes.UUID,
@@ -24,6 +25,7 @@ const Order = sequelize.define("Order", {
   },
   order_number: {
     type: DataTypes.STRING(50),
+    unique: true,
   },
   parcel_name: {
     type: DataTypes.STRING(100),
@@ -36,6 +38,7 @@ const Order = sequelize.define("Order", {
   priority_status: {
     type: DataTypes.STRING(100),
     allowNull: false,
+    defaultValue: "1",
   },
   pickup_address: {
     type: DataTypes.STRING(100),
@@ -50,10 +53,13 @@ const Order = sequelize.define("Order", {
     defaultValue: true,
   },
   status: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
+    type: DataTypes.STRING,
+    defaultValue: "BOOKED",
   },
 });
-async () => await sequelize.sync({ force: true });
+// const create = async () =>
+//   await sequelize.sync({ force: true }).then(console.log("Database"));
+
+// create();
 
 module.exports = Order;

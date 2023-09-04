@@ -10,7 +10,8 @@ const validateToken = asynHandler(async (req, res, next) => {
 
   if (authHeader && authHeader.startsWith("Bearer")) {
     token = authHeader.split(" ")[1];
-    const invalidatedTokens = InvalidToken.findOne({ where: { token } });
+    const invalidatedTokens = await InvalidToken.findOne({ where: { token } });
+
     if (invalidatedTokens != null) {
       res.status(401).send({ message: "User logged out" });
     } else {

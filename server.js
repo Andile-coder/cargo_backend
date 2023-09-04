@@ -18,8 +18,12 @@ const userAuthRoutes = require("./routes/UserAuthRoutes");
 app.use("/", userAuthRoutes);
 //driver
 const driverAuthRoutes = require("./routes/DriverAuthRoutes");
-app.use("/", driverAuthRoutes);
-//
+app.use("/driver", driverAuthRoutes);
+//order
+const orderRoutes = require("./routes/OrderRoutes");
+app.use("/order/", orderRoutes);
+
+//start server
 app.listen(port, () => {
   console.log(`Listening to port ${port}`);
 });
