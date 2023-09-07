@@ -22,7 +22,9 @@ app.use("/driver", driverAuthRoutes);
 //order
 const orderRoutes = require("./routes/OrderRoutes");
 app.use("/order/", orderRoutes);
-
+//order history
+const orderHistoryRoutes = require("./routes/OrderHistoryRoutes");
+app.use("/order_history", orderHistoryRoutes);
 //start server
 app.listen(port, () => {
   console.log(`Listening to port ${port}`);

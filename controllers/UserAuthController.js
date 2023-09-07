@@ -12,10 +12,12 @@ const createUser = asyncHandler(async (req, res) => {
 
   if (!username || !email || !password || !cell_phone_number) {
     res.status(400).send({ message: "Missing Values" });
+    return;
   }
   const availableUser = await User.findOne({ where: { email } });
   if (availableUser) {
-    res.status(400).send({ message: "Email already Exists" });
+    res.status(409).send({ message: "Email already Exists" });
+    return;
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -45,7 +47,7 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 
   const user = await User.findOne({ where: { email } });
-  console.log(process.env.ACCESS_TOKEN_SECRET);
+
   //compare password
 
   if (user && (await bcrypt.compare(password, user.password))) {

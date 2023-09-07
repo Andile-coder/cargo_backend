@@ -89,7 +89,20 @@ const assignDriver = asyncHandler(async (req, res) => {
 //@route GET /api/order/:id
 //@access private
 
-const getOrderbyOrderNumber = asyncHandler(async (req, res) => {});
+const getOrderbyOrderNumber = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { user_id } = req.user;
+  console.log(user_id);
+  await Order.findOne({ where: { order_number: id, user_id } })
+    .then((result) => {
+      res.status(201).json({ data: result });
+      return;
+    })
+    .catch((error) => {
+      res.status(400).json({ mesaage: "Failed to get order", error });
+      return;
+    });
+});
 
 //@desc change driver order
 //@route UPDATE /api/order/deliver/
@@ -117,4 +130,5 @@ module.exports = {
   assignDriver,
   deliverOrder,
   changeOrderDriver,
+  getOrderbyOrderNumber,
 };
