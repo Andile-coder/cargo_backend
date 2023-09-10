@@ -39,5 +39,8 @@ const User = sequelize.define("User", {
     allowNull: false,
   },
 });
+const create = async () =>
+  await sequelize.sync({ force: true }).then(console.log("Database"));
 
+create();
 module.exports = User;

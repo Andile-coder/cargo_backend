@@ -25,8 +25,8 @@ const OrderHistory = sequelize.define("order_history", {
     allowNull: false,
   },
 });
-const create = async () =>
-  await sequelize.sync({ force: true }).then(console.log("Database"));
+// const create = async () =>
+//   await sequelize.sync({ force: true }).then(console.log("Database"));
 
-create();
+// create();
 module.exports = OrderHistory;
