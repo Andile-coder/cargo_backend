@@ -11,6 +11,12 @@ const createOrder = asyncHandler(async (req, res) => {
     droppoff_address,
     pickup_address,
     pickup_date,
+    sender_number,
+    sender_email,
+    sender_full_name,
+    receiver_number,
+    receiver_email,
+    receiver_full_name,
   } = req.body;
 
   const user = req.user;
@@ -21,6 +27,12 @@ const createOrder = asyncHandler(async (req, res) => {
     !required_temp ||
     !droppoff_address ||
     !pickup_address ||
+    !sender_number ||
+    !sender_email ||
+    !sender_full_name ||
+    !receiver_number ||
+    !receiver_email ||
+    !receiver_full_name ||
     !user == null
   ) {
     res.status(400).json({ message: "Missing Values" });
@@ -35,6 +47,12 @@ const createOrder = asyncHandler(async (req, res) => {
     pickup_date,
     user_id: user.user_id,
     order_number,
+    sender_number,
+    sender_email,
+    sender_full_name,
+    receiver_number,
+    receiver_email,
+    receiver_full_name,
   })
     .then((order) => {
       res.status(201).json({ message: "Order created succesfully " });
