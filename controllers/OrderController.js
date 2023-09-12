@@ -93,7 +93,7 @@ const getOrderbyOrderNumber = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { user_id } = req.user;
 
-  await Order.findOne({ where: { order_number: id, user_id } })
+  await Order.findOne({ where: { order_number: id } })
     .then((result) => {
       res.status(201).json({ data: result });
       return;
