@@ -12,7 +12,7 @@ const cors = require("cors");
 
 app.use(cors());
 app.use(express.json());
-const port = process.env.Port || 3001;
+const port = process.env.PORT || 3001;
 //client /User
 const userAuthRoutes = require("./routes/UserAuthRoutes");
 app.use("/", userAuthRoutes);

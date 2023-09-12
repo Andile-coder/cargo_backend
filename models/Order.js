@@ -56,7 +56,6 @@ const Order = sequelize.define("Order", {
     type: DataTypes.STRING,
     defaultValue: "BOOKED",
   },
-
   receiver_full_name: {
     type: DataTypes.STRING,
     allowNull: false,
