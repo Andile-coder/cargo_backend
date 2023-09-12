@@ -19,7 +19,9 @@ const validateToken = asynHandler(async (req, res, next) => {
         if (err) {
           res.status(401).send({ message: "User unauthorized" });
         }
-        req.user = decoded.user;
+        console.log("decode", decoded);
+
+        req.user = decoded.user == undefined ? decoded.Driver : decoded.user;
         next();
       });
     }

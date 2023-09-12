@@ -21,7 +21,7 @@ const driverAuthRoutes = require("./routes/DriverAuthRoutes");
 app.use("/driver", driverAuthRoutes);
 //order
 const orderRoutes = require("./routes/OrderRoutes");
-app.use("/order/", orderRoutes);
+app.use("/orders/", orderRoutes);
 //order history
 const orderHistoryRoutes = require("./routes/OrderHistoryRoutes");
 app.use("/order_history", orderHistoryRoutes);

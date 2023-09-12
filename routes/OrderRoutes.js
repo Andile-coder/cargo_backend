@@ -16,7 +16,7 @@ const router = express.Router();
 
 router.post("/", validateToken, generateUniqueOrderUuid, createOrder);
 //get
-router.get("/:id", validateToken, getOrderbyOrderNumber);
+router.get("/user/:id", validateToken, getOrderbyOrderNumber);
 router.get("/", validateToken, getUserOrders);
 router.patch("/cancel/:id", validateToken, cancelOrder);
 router.put("/order/deliver/:id", deliverOrder);
