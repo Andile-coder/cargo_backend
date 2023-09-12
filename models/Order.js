@@ -56,7 +56,33 @@ const Order = sequelize.define("Order", {
     type: DataTypes.STRING,
     defaultValue: "BOOKED",
   },
+
+  receiver_full_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  receiver_email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  receiver_number: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  sender_full_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  sender_email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  sender_number: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
 });
+
 // const create = async () =>
 //   await sequelize.sync({ force: true }).then(console.log("Database"));
 
