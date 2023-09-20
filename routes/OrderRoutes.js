@@ -8,6 +8,7 @@ const {
   getOrderbyOrderNumber,
   getUserOrders,
   getDriverOrders,
+  inProgressOrder,
 } = require("../controllers/OrderController");
 const validateToken = require("../middleware/validateToken");
 const { generateUniqueOrderUuid } = require("../middleware/customeOrderNumber");
@@ -19,6 +20,7 @@ router.post("/", validateToken, generateUniqueOrderUuid, createOrder);
 router.get("/user/:id", validateToken, getOrderbyOrderNumber);
 router.get("/", validateToken, getUserOrders);
 router.patch("/cancel/:id", validateToken, cancelOrder);
+router.patch("/inprogress/:id", validateToken, inProgressOrder);
 router.put("/order/deliver/:id", deliverOrder);
 router.get("/driver", validateToken, getDriverOrders);
 router.patch("/driver", validateToken, assignDriver);

@@ -86,6 +86,27 @@ const cancelOrder = asyncHandler(async (req, res) => {
     });
 });
 
+//@desc update order
+//@route UPDATE /api/order/cancel/:id
+//@access private
+const inProgressOrder = asyncHandler(async (req, res) => {
+  const { driver_id } = req.user;
+  const { id } = req.params;
+  //find order
+  await Order.update(
+    { status: "INPROGRESS" },
+    { where: { order_id: id, driver_id } }
+  )
+    .then((result) => {
+      res.status(201).json({ message: "Order Canceled Succesfully" });
+      return;
+    })
+    .catch((error) => {
+      res.status(400).json({ message: "Failed to cancel Order", error });
+      return;
+    });
+});
+
 //@desc  asign order to driver
 //@route UPDATE /api/order/driver
 //@access private
@@ -182,4 +203,5 @@ module.exports = {
   getOrderbyOrderNumber,
   getUserOrders,
   getDriverOrders,
+  inProgressOrder,
 };
