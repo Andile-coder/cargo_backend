@@ -95,7 +95,7 @@ const inProgressOrder = asyncHandler(async (req, res) => {
   //find order
   await Order.update(
     { status: "INPROGRESS" },
-    { where: { order_id: id, driver_id } }
+    { where: { order_number: id, driver_id } }
   )
     .then((result) => {
       res.status(201).json({ message: "Order Canceled Succesfully" });
