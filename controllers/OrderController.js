@@ -98,11 +98,11 @@ const inProgressOrder = asyncHandler(async (req, res) => {
     { where: { order_number: id, driver_id } }
   )
     .then((result) => {
-      res.status(201).json({ message: "Order Canceled Succesfully" });
+      res.status(201).json({ message: "Order now inprogress" });
       return;
     })
     .catch((error) => {
-      res.status(400).json({ message: "Failed to cancel Order", error });
+      res.status(400).json({ message: "Failed to opdate Order", error });
       return;
     });
 });

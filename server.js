@@ -25,6 +25,13 @@ app.use("/orders/", orderRoutes);
 //order history
 const orderHistoryRoutes = require("./routes/OrderHistoryRoutes");
 app.use("/order_history", orderHistoryRoutes);
+
+//Container
+const containerRoutes = require("./routes/ContainerRoutes");
+app.use("/containers/", containerRoutes);
+//Vehicle
+const vehicleRoutes = require("./routes/VehicleRoutes");
+app.use("/vehicles/", vehicleRoutes);
 //start server
 app.listen(port, () => {
   console.log(`Listening to port ${port}`);
