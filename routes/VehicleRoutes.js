@@ -17,3 +17,4 @@ router.post("/", validateToken, creatVehicle);
 router.get("/", validateToken, getAllVehicles);
 router.get("/:id", validateToken, getVehicleById);
 router.patch("/driver", validateToken, assignDriver);
+module.exports = router;

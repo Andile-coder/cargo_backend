@@ -17,3 +17,4 @@ router.post("/", validateToken, creatContainer);
 router.get("/", validateToken, getAllContainers);
 router.get("/:id", validateToken, getContainerbyMacAddress);
 router.patch("/vehicle", validateToken, assignVehicle);
+module.exports = router;
