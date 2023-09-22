@@ -8,9 +8,9 @@ const asyncHandler = require("express-async-handler");
 //@access public
 
 const createAdmin = asyncHandler(async (req, res) => {
-  const { user_name, email, password, cell_phone_number } = req.body;
+  const { username, email, password, cell_phone_number } = req.body;
 
-  if (!user_name || !email || !password || !cell_phone_number) {
+  if (!username || !email || !password || !cell_phone_number) {
     res.status(400).send({ message: "Missing Values" });
     return;
   }
@@ -22,7 +22,7 @@ const createAdmin = asyncHandler(async (req, res) => {
 
   const hashedPassword = await bcrypt.hash(password, 10);
   Admin.create({
-    user_name,
+    username,
     email,
     password: hashedPassword,
     active: false,
