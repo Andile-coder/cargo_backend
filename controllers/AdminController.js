@@ -46,23 +46,23 @@ const loginAdmin = asyncHandler(async (req, res) => {
     res.status(400).send({ message: "Missing Values" });
   }
 
-  const Admin = await Admin.findOne({ where: { email } });
+  const admin = await Admin.findOne({ where: { email } });
 
   //compare password
 
-  if (Admin && (await bcrypt.compare(password, Admin.password))) {
+  if (admin && (await bcrypt.compare(password, admin.password))) {
     const accessToken = jwt.sign(
       {
-        Admin: {
-          username: Admin.username,
-          email: Admin.email,
-          Admin_id: Admin.user_id,
+        admin: {
+          username: admin.username,
+          email: admin.email,
+          Admin_id: admin.user_id,
         },
       },
       process.env.ACCESS_TOKEN_SECRET
     );
-    res.status(200).json({ message: Admin, accessToken });
-  } else if (Admin == null) {
+    res.status(200).json({ message: admin, accessToken });
+  } else if (admin == null) {
     res.status(404).send({ message: "Email not registered" });
   } else {
     res.status(401).send({ message: "Invalid Password or Email" });
