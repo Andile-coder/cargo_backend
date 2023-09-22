@@ -173,7 +173,26 @@ const getDriverOrders = asyncHandler(async (req, res) => {
       return;
     });
 });
+//@desc change driver order
+//@route GET /api/order/
+//@access private
 
+const getAllOrders = asyncHandler(async (req, res) => {
+  const { admin_id } = req.admin;
+  if (admin_id) {
+    await Order.findAll()
+      .then((result) => {
+        res.status(201).json({ data: result });
+        return;
+      })
+      .catch((error) => {
+        res.status(400).json({ mesaage: "Failed to get orders", error });
+        return;
+      });
+  } else {
+    res.status(401).json({ mesaage: "Not Admin", error });
+  }
+});
 //@desc change driver order
 //@route UPDATE /api/order/deliver/
 //@access private
@@ -204,4 +223,5 @@ module.exports = {
   getUserOrders,
   getDriverOrders,
   inProgressOrder,
+  getAllOrders,
 };
