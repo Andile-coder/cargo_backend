@@ -34,7 +34,6 @@ const Admin = sequelize.define("Admin", {
     defaultValue: true,
     allowNull: false,
   },
-
   varified: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,

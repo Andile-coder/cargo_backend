@@ -16,6 +16,9 @@ const port = process.env.PORT || 3001;
 //client /User
 const userAuthRoutes = require("./routes/UserAuthRoutes");
 app.use("/", userAuthRoutes);
+//admin
+const adminAuthRoutes = require("./routes/AdminRoutes");
+app.use("/admin/", adminAuthRoutes);
 //driver
 const driverAuthRoutes = require("./routes/DriverAuthRoutes");
 app.use("/driver", driverAuthRoutes);

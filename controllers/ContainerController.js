@@ -34,7 +34,6 @@ const creatContainer = asyncHandler(async (req, res) => {
 
 const getContainerbyMacAddress = asyncHandler(async (req, res) => {
   const { id } = req.params;
-
   await Container.findOne({ where: { mac_address: id } })
     .then((result) => {
       res.status(201).json({ data: result });
