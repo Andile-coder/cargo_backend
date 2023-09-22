@@ -54,7 +54,7 @@ const loginAdmin = asyncHandler(async (req, res) => {
     const accessToken = jwt.sign(
       {
         Admin: {
-          user_name: Admin.user_name,
+          username: Admin.username,
           email: Admin.email,
           Admin_id: Admin.user_id,
         },
