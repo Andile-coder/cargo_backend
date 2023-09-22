@@ -178,7 +178,7 @@ const getDriverOrders = asyncHandler(async (req, res) => {
 //@access private
 
 const getAllOrders = asyncHandler(async (req, res) => {
-  const { admin_id } = req.admin;
+  // const { admin_id } = req.admin;
 
   await Order.findAll()
     .then((result) => {
