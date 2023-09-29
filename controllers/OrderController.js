@@ -110,6 +110,19 @@ const inProgressOrder = asyncHandler(async (req, res) => {
 //@desc  asign order to driver
 //@route UPDATE /api/order/driver
 //@access private
+const assignDriver = asyncHandler(async (req, res) => {
+  const { driver_id, order_number } = req.body;
+  //find order
+  await Order.update({ driver_id }, { where: { order_number } })
+    .then((result) => {
+      res.status(201).json({ message: "Driver Assigned Succesfully" });
+      return;
+    })
+    .catch((error) => {
+      res.status(400).json({ message: "Failed to Assign Driver", error });
+      return;
+    });
+});
 
 //@desc change driver order
 //@route GET /api/order/:id
