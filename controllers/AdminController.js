@@ -1,4 +1,5 @@
 const Admin = require("../models/Admin");
+const Order = require("../models/Order");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
@@ -93,4 +94,55 @@ const logoutAdmin = asyncHandler(async (req, res) => {
     res.status(400).send({ message: "Invalid request" });
   }
 });
-module.exports = { createAdmin, loginAdmin, logoutAdmin };
+//@desc accept order
+//@route UPDATE /accept_order/:id
+//@access private
+
+const acceptOrder = asyncHandler(async (req, res) => {
+  const { admin_id } = req.user;
+  const { id } = req.params;
+  //find order
+  if (admin_id) {
+    await Order.update({ status: "ACCEPTED" }, { where: { order_number: id } })
+      .then((result) => {
+        res.status(201).json({ message: "Order now Accepted" });
+        return;
+      })
+      .catch((error) => {
+        res.status(400).json({ message: "Failed to opdate Order", error });
+        return;
+      });
+  } else {
+    res.status(401).json({ mesaage: "User not Authorised" });
+    return;
+  }
+});
+//@desc assign order
+//@route UPDATE /assign_driver/:id
+//@access private
+const assignDriver = asyncHandler(async (req, res) => {
+  const { driver_id, order_number } = req.body;
+  const { admin_id } = req.user;
+  //find order
+  if (admin_id) {
+    await Order.update({ driver_id }, { where: { order_number } })
+      .then((result) => {
+        res.status(201).json({ message: "Driver Assigned Succesfully" });
+        return;
+      })
+      .catch((error) => {
+        res.status(400).json({ message: "Failed to Assign Driver", error });
+        return;
+      });
+  } else {
+    res.status(401).json({ mesaage: "User not Authorised" });
+    return;
+  }
+});
+module.exports = {
+  createAdmin,
+  loginAdmin,
+  logoutAdmin,
+  acceptOrder,
+  assignDriver,
+};

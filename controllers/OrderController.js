@@ -110,19 +110,6 @@ const inProgressOrder = asyncHandler(async (req, res) => {
 //@desc  asign order to driver
 //@route UPDATE /api/order/driver
 //@access private
-const assignDriver = asyncHandler(async (req, res) => {
-  const { driver_id, order_number } = req.body;
-  //find order
-  await Order.update({ driver_id }, { where: { order_number } })
-    .then((result) => {
-      res.status(201).json({ message: "Driver Assigned Succesfully" });
-      return;
-    })
-    .catch((error) => {
-      res.status(400).json({ message: "Failed to Assign Driver", error });
-      return;
-    });
-});
 
 //@desc change driver order
 //@route GET /api/order/:id
@@ -163,7 +150,14 @@ const getUserOrders = asyncHandler(async (req, res) => {
 //@access private
 const getDriverOrders = asyncHandler(async (req, res) => {
   const { driver_id } = req.user;
-  await Order.findAll({ where: { driver_id } })
+  const { status } = req.query;
+  const condition = { driver_id };
+
+  // Check if a status query parameter is provided
+  if (status) {
+    condition.status = status;
+  }
+  await Order.findAll({ where: condition })
     .then((result) => {
       res.status(201).json({ data: result });
       return;
@@ -178,17 +172,29 @@ const getDriverOrders = asyncHandler(async (req, res) => {
 //@access private
 
 const getAllOrders = asyncHandler(async (req, res) => {
-  // const { admin_id } = req.admin;
+  console.log(req);
+  const { admin_id } = req.user;
+  const { status } = req.query;
+  const condition = {};
 
-  await Order.findAll()
-    .then((result) => {
-      res.status(201).json({ data: result });
-      return;
-    })
-    .catch((error) => {
-      res.status(400).json({ mesaage: "Failed to get orders", error });
-      return;
-    });
+  // Check if a status query parameter is provided
+  if (admin_id) {
+    if (status) {
+      condition.status = status;
+    }
+    await Order.findAll({ where: condition })
+      .then((result) => {
+        res.status(201).json({ data: result });
+        return;
+      })
+      .catch((error) => {
+        res.status(400).json({ mesaage: "Failed to get orders", error });
+        return;
+      });
+  } else {
+    res.status(401).json({ mesaage: "User not Authorised" });
+    return;
+  }
 });
 //@desc change driver order
 //@route UPDATE /api/order/deliver/

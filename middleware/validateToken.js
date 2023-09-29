@@ -21,7 +21,12 @@ const validateToken = asynHandler(async (req, res, next) => {
         }
         console.log("decode", decoded);
 
-        req.user = decoded.user == undefined ? decoded.Driver : decoded.user;
+        req.user =
+          decoded.user == undefined
+            ? decoded.Driver == undefined
+              ? decoded.admin
+              : decoded.Driver
+            : decoded.user;
         next();
       });
     }

@@ -1,11 +1,4 @@
 const express = require("express");
-const sequelize = require("./config");
-const User = require("./models/User");
-const Admin = require("./models/Admin");
-const Driver = require("./models/Driver");
-const Vehicle = require("./models/Vehicle");
-const InvalidToken = require("./models/InvalidToken");
-const { DataTypes } = require("sequelize");
 const dotenv = require("dotenv").config();
 const app = express();
 const cors = require("cors");
