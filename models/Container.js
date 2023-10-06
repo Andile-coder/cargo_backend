@@ -37,9 +37,9 @@ const Container = sequelize.define("Container", {
   },
 });
 // async () => await sequelize.sync({ force: true });
-const create = async () =>
-  await sequelize.sync({ force: true }).then(console.log("Database"));
+// const create = async () =>
+//   await sequelize.sync({ force: true }).then(console.log("Database"));
 
-create();
+// create();
 
 module.exports = Container;
