@@ -36,7 +36,7 @@ const Container = sequelize.define("Container", {
     type: DataTypes.STRING,
   },
 });
-async () => await sequelize.sync({ force: true });
+// async () => await sequelize.sync({ force: true });
 const create = async () =>
   await sequelize.sync({ force: true }).then(console.log("Database"));
 
