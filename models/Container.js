@@ -25,7 +25,21 @@ const Container = sequelize.define("Container", {
   location: {
     type: DataTypes.STRING(100),
   },
+  status: {
+    type: DataTypes.STRING,
+    defaultValue: "FREE",
+  },
+  icetime: {
+    type: DataTypes.STRING,
+  },
+  temp: {
+    type: DataTypes.STRING,
+  },
 });
-// async () => await sequelize.sync({ force: true });
+async () => await sequelize.sync({ force: true });
+const create = async () =>
+  await sequelize.sync({ force: true }).then(console.log("Database"));
+
+create();
 
 module.exports = Container;
