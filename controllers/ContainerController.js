@@ -70,9 +70,58 @@ const getAllContainers = asyncHandler(async (req, res) => {
       return;
     });
 });
+
+const updateIceTime = asyncHandler(async (req, res) => {
+  const { icetime, mac_address } = req.body;
+  //find Container
+  await Container.update({ icetime }, { where: { mac_address } })
+    .then((result) => {
+      res.status(201).json({ message: "icetime updated Succesfully" });
+      return;
+    })
+    .catch((error) => {
+      res
+        .status(400)
+        .json({ message: "Failed to update ice time Driver", error });
+      return;
+    });
+});
+const updateTemp = asyncHandler(async (req, res) => {
+  const { temp, mac_address } = req.body;
+  //find Container
+  await Container.update({ temp }, { where: { mac_address } })
+    .then((result) => {
+      res.status(201).json({ message: "Temperature updated Succesfully" });
+      return;
+    })
+    .catch((error) => {
+      res
+        .status(400)
+        .json({ message: "Failed to update temperature Driver", error });
+      return;
+    });
+});
+const updateLocation = asyncHandler(async (req, res) => {
+  const { location, mac_address } = req.body;
+  //find Container
+  await Container.update({ location }, { where: { mac_address } })
+    .then((result) => {
+      res.status(201).json({ message: "Loation updated Succesfully" });
+      return;
+    })
+    .catch((error) => {
+      res
+        .status(400)
+        .json({ message: "Failed to update location Driver", error });
+      return;
+    });
+});
 module.exports = {
   creatContainer,
   getContainerbyMacAddress,
   assignVehicle,
   getAllContainers,
+  updateIceTime,
+  updateTemp,
+  updateLocation,
 };
