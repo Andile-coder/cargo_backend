@@ -9,6 +9,9 @@ const port = process.env.PORT || 3001;
 //client /User
 const userAuthRoutes = require("./routes/UserAuthRoutes");
 app.use("/", userAuthRoutes);
+app.get("/", (req, res) => {
+  res.send("Welcome to the home page");
+});
 //admin
 const adminAuthRoutes = require("./routes/AdminRoutes");
 app.use("/admin/", adminAuthRoutes);
